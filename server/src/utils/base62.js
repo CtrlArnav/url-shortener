@@ -26,3 +26,12 @@ export function generateRandomCode(len = 6) {
     }
     return code;
 }
+
+export async function generateUniqueCode(existsFn, maxTries = 5) {
+    for (let i = 0; i < maxTries; i++) {
+        const code = generateRandomCode();
+        const isTaken = await existsFn(code);
+        if (!isTaken) return code;
+    }
+    throw new Error("Could not generate a unique code.");
+}
