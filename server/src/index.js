@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import urlRoutes from "./routes/urls.js";
+import redirectRoutes from "./routes/redirect.js"
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,7 @@ const MONGO_URI=process.env.MONGO_URI;
 app.use(cors());
 app.use(express.json());
 app.use("/api",urlRoutes);
+app.use("/", redirectRoutes);
 
 app.get("/api/health", (req, res) => {
     res.json({ status: "ok", message: "Server is running" });
