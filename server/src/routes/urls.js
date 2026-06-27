@@ -48,4 +48,14 @@ router.post("/shorten", async (req, res) => {
     }
 });
 
+router.get("/urls", async (req, res) => {
+    try {
+        const urls = await Url.find().sort({ createdAt: -1 });
+        return res.json(urls);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Server error." });
+    }
+});
+
 export default router;
